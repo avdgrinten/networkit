@@ -718,6 +718,32 @@ void Graph::removeAllEdges() {
 	m = 0;
 }
 
+void Graph::removeEdgesFromIsolatedSet(const std::vector<node> &nodesInSet) {
+	count removedEdges = 0;
+	for (node u : nodesInSet) {
+		removedEdges += outDeg[u];
+		outDeg[u] = 0;
+		outEdges[u].clear();
+		if (this->weighted) {
+			outEdgeWeights[u].clear();
+		}
+		if (this->isDirected()) {
+			inDeg[u] = 0;
+			inEdges[u].clear();
+			if (this->weighted) {
+ 				for (node u : nodes()) {
+					assert(inDeg[u] == 0);
+					assert(outDeg[u] == 0);
+					assert(inEdges[u].size() == 0);
+					assert(outEdges[u].size() == 0);
+				}
+				assert(this->m == removedEdges);
+				this->m = 0;
+			}
+		}
+	}
+}
+
 void Graph::removeSelfLoops() {
 	this->forEdges([&](node u, node v, edgeweight ew) {
 		if (u == v) {
