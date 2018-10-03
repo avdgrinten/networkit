@@ -6,6 +6,7 @@ networkit_add_module(centrality
     Centrality.cpp
     Closeness.cpp
     CoreDecomposition.cpp
+    CurrentFlowCloseness.cpp
     DegreeCentrality.cpp
     DynApproxBetweenness.cpp
     DynBetweenness.cpp
@@ -28,19 +29,19 @@ networkit_add_module(centrality
     SpanningEdgeCentrality.cpp
     TopCloseness.cpp
     TopHarmonicCloseness.cpp
-    )
+)
 
 networkit_module_link_modules(centrality
-        algebraic
-        auxiliary
-        base
-        components
-        distance
-        dyn_distance
-        dynamics
-        graph
-        structures
-    )
+    algebraic
+    auxiliary
+    base
+    components
+    distance
+    dyn_distance
+    dynamics
+    graph
+    structures
+)
 
 add_subdirectory(test)
 

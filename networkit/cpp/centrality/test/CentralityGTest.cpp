@@ -24,6 +24,7 @@
 #include "../Betweenness.h"
 #include "../Closeness.h"
 #include "../CoreDecomposition.h"
+#include "../CurrentFlowCloseness.h"
 #include "../DynApproxBetweenness.h"
 #include "../DynKatzCentrality.h"
 #include "../EigenvectorCentrality.h"
@@ -789,6 +790,31 @@ TEST_F(CentralityGTest, testHarmonicClosenessCentrality) {
 	EXPECT_NEAR(3.5, hc[4], tol);
 	EXPECT_NEAR(3.1667, hc[5], tol);
 	EXPECT_NEAR(1, maximum, tol);
+}
+
+TEST_F(CentralityGTest, runCurrentFlowClosenessCentrality) {
+	/* Graph:
+	 0    3
+	  \  / \
+	   2    5
+	  /  \ /
+	 1    4
+	*/
+	count n = 6;
+	Graph G(n);
+
+	G.addEdge(0, 2);
+	G.addEdge(1, 2);
+	G.addEdge(2, 3);
+	G.addEdge(2, 4);
+	G.addEdge(3, 5);
+	G.addEdge(4, 5);
+
+	CurrentFlowCloseness centrality(G, false);
+	centrality.run();
+	std::vector<double> cv = centrality.scores();
+    for(double c : cv)
+        INFO(c);
 }
 
 TEST_F(CentralityGTest, runKPathCentrality) {
