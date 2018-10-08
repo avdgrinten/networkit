@@ -2,7 +2,12 @@ from networkit import *
 import matplotlib.pyplot as plt
 import numpy as np
 import operator
-import pandas
+
+try:
+	import pandas
+except ImportError as importError:
+	print("WARNING: module 'pandas' is not installed, plotting functionality will be limited")
+	print(importError)
 
 try:
 	import seaborn

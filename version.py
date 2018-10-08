@@ -55,10 +55,6 @@ classifiers = [
 install_requires = [
 	'scipy',
 	'matplotlib',
-	'pandas',
 	'numpy',
 	'networkx',
-	'tabulate',
-	'seaborn',
-	'sklearn'
 ]
