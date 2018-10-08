@@ -21,12 +21,14 @@ from . import graphio
 import os
 import math
 import random
+import tempfile
+import subprocess
+
 try:
 	import tabulate
 except ImportError:
 	print(""" WARNING: module 'tabulate' not found, please install it to use the full functionality of NetworKit """)
-import tempfile
-import subprocess
+	tabulate = None
 
 def detectCommunities(G, algo=None, inspect=True):
 	""" Perform high-performance community detection on the graph.
@@ -61,8 +63,10 @@ def inspectCommunities(zeta, G):
 		#["imbalance", zeta.getImbalance()],
 		["modularity", mod],
 	]
-	print(tabulate.tabulate(commProps))
-
+	if tabulate is not None:
+		print(tabulate.tabulate(commProps))
+	else:
+		print("insectCommunities() needs 'tabulate'");
 
 def communityGraph(G, zeta):
 	""" Create a community graph, i.e. a graph in which one node represents a community and an edge represents the edges between communities, from a given graph and a community detection solution"""
@@ -83,7 +87,10 @@ def evalCommunityDetection(algo, G):
 		["# communities", zeta.numberOfSubsets()],
 		["modularity", Modularity().getQuality(zeta, G)]
 	]
-	print(tabulate.tabulate(results))
+	if tabulate is not None:
+		print(tabulate.tabulate(results))
+	else:
+		print("insectCommunities() needs 'tabulate'");
 
 
 def readCommunities(path, format="default"):
