@@ -5,6 +5,8 @@ env:
     - export OMP_NUM_THREADS=2
     - export CXX_STANDARD=11
 
+cache: pip
+
 matrix:
   include:
     - name: Linux, modern GCC
